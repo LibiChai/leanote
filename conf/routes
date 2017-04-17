@@ -8,12 +8,11 @@
 Get 	/											Index.Default
 GET     /note   	                                Note.Index
 # leanote home
-GET     /index   	                                Index.Index
+GET     /index   	                                Index.Default
 
 GET     /login                                     	Auth.Login
 POST     /doLogin                                   Auth.DoLogin
 GET     /logout                                     Auth.Logout
-Get     /demo                                   	Auth.Demo
 
 Get 	 /register									Auth.Register
 POST     /doRegister                                Auth.DoRegister

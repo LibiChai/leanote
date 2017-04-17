@@ -1,7 +1,10 @@
 @font-face {
-  font-family: 'leanote';
-  src: url('../../fonts/leanote-font3/leanote.eot?-vcf23i');
-  src: url('../../fonts/leanote-font3/leanote.eot?#iefix-vcf23i') format('embedded-opentype'), url('../../fonts/leanote-font3/leanote.ttf?-vcf23i') format('truetype'), url('../../fonts/leanote-font3/leanote.woff?-vcf23i') format('woff'), url('../../fonts/leanote-font3/leanote.svg?-vcf23i#leanote') format('svg');
+  font-family: 'libisky';
+  src:  url('../fonts/libisky-font/icomoon.eot?wfl9cf');
+  src:  url('../fonts/libisky-font/icomoon.eot?wfl9cf#iefix') format('embedded-opentype'),
+  url('../fonts/libisky-font/icomoon.ttf?wfl9cf') format('truetype'),
+  url('../fonts/libisky-font/icomoon.woff?wfl9cf') format('woff'),
+  url('../fonts/libisky-font/icomoon.svg?wfl9cf#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -9,7 +12,7 @@
 .mce-i-mind,
 .mce-i-ace-pre,
 .lea-icon {
-  font-family: 'leanote' !important;
+  font-family: 'libisky' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -28,17 +31,17 @@
   content: "\e603";
 }
 #logo:before {
-  content: "\e901";
+  content: "\e981";
   line-height: 1;
   margin-top: 5px;
   display: inline-block;
   vertical-align: top;
 }
 #logo.icon-only:before {
-  content: "\e902";
+  content: "\e981";
 }
 .lang-zh-cn #logo:before {
-  content: "\e900";
+  content: "\e981";
 }
 @font-face {
   font-family: 'Open Sans';

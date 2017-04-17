@@ -4,20 +4,17 @@
 	<div id="posts">
 		<div class="each-post">
 			<div class="title">
-				{{if $.post.Title}}
-          	        {{$.post.Title}}
-          	    {{else}}
-          	        Untitled
-          	    {{end}}
+				{{.post.Title}}
 			</div>
 			<div class="created-time">
-			    {{if $.post.Tags}} 
-				    <i class="fa fa-bookmark-o"></i>
+			<svg class="icon" aria-hidden="true" style="font-size:18px;color:#e96900">
+                <use xlink:href="#icon-tag"></use>
+            </svg>
+    			{{if $.post.Tags}} 
     				{{blogTags $ $.post.Tags}}
-    				&nbsp;&nbsp;
+    			{{else}}
+    				无
     			{{end}}
-    			
-    			<i class="fa fa-clock-o"></i> {{$.post.PublicTime | datetime}} 
     			&nbsp;&nbsp;
     			<span class="fa fa-eye"></span> {{$.post.ReadNum}}
     			&nbsp;&nbsp;
@@ -56,14 +53,7 @@
 				{{end}}
 			</div>
 			
-		    <div class="pre-next-post">
-		        <p>
-			    Pre: {{if $.prePost}}<a href="{{$.postUrl}}/{{$.prePost.UrlTitle}}">{{$.prePost.Title}}</a>{{else}}No Post{{end}}
-                </p>
-                <p>
-                Next: {{if $.nextPost}}<a href="{{$.postUrl}}/{{$.nextPost.UrlTitle}}">{{$.nextPost.Title}}</a>{{else}}No Post{{end}}
-			    </p>
-			</div>
+		   
 			
 			<!-- share & comment -->
 			{{template "share_comment.html" $}}
@@ -71,13 +61,17 @@
 	</div>
 </div>
 
+
+
+
+
 {{template "footer.html" $}}
 {{template "highlight.html" $}}
 
 <div id="blogNav">
 	<div id="blogNavNav">
-		<i class="fa fa-align-justify" title="Table of content"></i>
-		<span>Table of content</span>
+		<i class="fa fa-align-justify" title="文档导航"></i>
+		<span>文档导航</span>
 	</div>
 	<div id="blogNavContent">
 	</div>
@@ -94,27 +88,28 @@ var commentNum = +"{{$.post.CommentNum}}";
 </script>
 
 <!-- 共享与评论css -->
-<link href="{{$.shareCommentCssUrl}}" rel="stylesheet">
+<link href="{{$.themeBaseUrl}}/share_comments.css" rel="stylesheet">
+<link href="{{$.themeBaseUrl}}/sweetalert.css" rel="stylesheet">
 <!-- 一些公用的js -->
-<script src="{{$.blogCommonJsUrl}}"></script>
 <script src="{{$.siteUrl}}/public/blog/js/jsrender.js"></script>
+<script src="{{$.themeBaseUrl}}/mo.min.js"></script>
+<script src="{{$.themeBaseUrl}}/common.js"></script>
+<script src="{{$.themeBaseUrl}}/sweetalert.min.js"></script>
+<script src="{{$.themeBaseUrl}}/share_comments.js"></script>
 <script src="{{$.siteUrl}}/public/blog/js/jquery-cookie-min.js"></script>
 <script src="{{$.siteUrl}}/public/blog/js/bootstrap-dialog.min.js"></script>
-<script src="{{$.siteUrl}}/public/blog/js/jquery.qrcode.min.js"></script>
-<!-- share && comment -->
-<script src="{{$.shareCommentJsUrl}}"></script>
-
 <!-- 
 markdown 
 调用markdown来解析得到html
--->{{if $.post.IsMarkdown }}
+-->
+{{if $.post.IsMarkdown }}
 <script src="/public/libs/md2html/md2html.js"></script>
 <script>
 var content = $.trim($("#markdownContent textarea").val());
 md2Html(content, $("#content"), function(html) {
     $("pre").addClass("prettyprint linenums");
     prettyPrint();
-    initNav();
+  initNav();
     weixin();
 });
 </script>
@@ -127,6 +122,5 @@ $(function() {
 });
 </script>
 {{end}}
-
 </body>
 </html>

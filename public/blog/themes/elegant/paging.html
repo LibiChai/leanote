@@ -18,10 +18,64 @@
     {{set . "nextPageUrl" "#"}}
 {{end}}
 
-{{$.paging.CurPage}}/{{$.paging.TotalPage}}
+<div class="my-pager">
 <ul class="pager">
-	<li class="{{$.prePageClass}}"><a href="{{$.prePageUrl}}">Pre</a></li>
-	<li class="{{$.nextPageClass}}"><a href="{{$.nextPageUrl}}">Next</a></li>
+    <li class="{{$.prePageClass}}"><a href="{{$.prePageUrl}}"><i class="fa fa-angle-left"></i>&nbsp;Prev</a></li>
+    <!--<span>{{$.paging.CurPage}} / {{$.paging.TotalPage}}</span>-->
+    <li class="{{$.nextPageClass}}" ><a href="{{$.nextPageUrl}}">Next&nbsp;<i class="fa fa-angle-right"></i></a></li>
 </ul>
+</div>
+<script>
+    var $li = $(".pager li:first-child");
+    var $cls = $li.attr('class');
+    if( $cls == 'disabled') $li.hide();
+</script>
+<style>
+.my-pager{
+    margin:30px 0px 30px 0px;
+}
+.pager span
+{
+  line-height: 32px;
+  margin: 0 auto;
+  font-size:16px;
+}
+    .pager li:first-child
+{
+  float: left;
+}
 
+.pager li:last-child
+{
+  float: right;
+}
+@media screen and (min-width: 1400px){
+ .pager li:first-child,
+.pager li:last-child {
+    font-size: 20px;
+    font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+    transition-duration: 0.3s; }
+    .pager li:first-child:hover {
+      transform: translateX(4px); }
+}
+@media screen and (max-width: 1399px){
+ .pager li:first-child,
+.pager li:last-child {
+    font-size: 18px;
+    font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+    transition-duration: 0.3s; }
+    .pager li:first-child:hover {
+      transform: translateX(4px); }
+}
+.pager li:last-child:hover {
+      transform: translateX(-4px); }
+       .pager li:first-child a:hover,
+      .pager li:last-child a:hover{
+          color: #42B983 !important;
+      }
+</style>
 {{end}}

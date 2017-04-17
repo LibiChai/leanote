@@ -1,49 +1,138 @@
 {{template "header.html" .}}
-
-<div id="postsContainer">
-	<div id="posts">
-		<div class="each-post">
-			<div class="title">
-				{{.single.Title}}
+<div id="postsContainer" class="single-friend">
+        <svg class="hidden">
+			<symbol id="icon-arrow" viewBox="0 0 24 24">
+				<title>arrow</title>
+				<polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "/>
+			</symbol>
+			<symbol id="icon-drop" viewBox="0 0 24 24">
+				<title>drop</title>
+				<path d="M12,21c-3.6,0-6.6-3-6.6-6.6C5.4,11,10.8,4,11.4,3.2C11.6,3.1,11.8,3,12,3s0.4,0.1,0.6,0.3c0.6,0.8,6.1,7.8,6.1,11.2C18.6,18.1,15.6,21,12,21zM12,4.8c-1.8,2.4-5.2,7.4-5.2,9.6c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2C17.2,12.2,13.8,7.3,12,4.8z"/><path d="M12,18.2c-0.4,0-0.7-0.3-0.7-0.7s0.3-0.7,0.7-0.7c1.3,0,2.4-1.1,2.4-2.4c0-0.4,0.3-0.7,0.7-0.7c0.4,0,0.7,0.3,0.7,0.7C15.8,16.5,14.1,18.2,12,18.2z"/>
+			</symbol>
+		</svg>
+		<div id="friend-model" style="display:none;">
+			<section class="content" >
+				<div class="grid grid--effect-castor">
+					<a href="https://32mb.space/" target="_blank" class="grid__item grid__item--c1">
+						<div class="stack">
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__figure">
+								<img class="stack__img" src="{{$.themeBaseUrl}}/images/2.png" alt="Image"/>
+							</div>
+						</div>
+						<div class="grid__item-caption">
+							<h3 class="grid__item-title">32 space</h3>
+							
+						</div>
+					</a>
+					<a href="http://blog.leanote.com/jint" target="_blank" class="grid__item grid__item--c2">
+						<div class="stack">
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__figure">
+								<img class="stack__img" src="{{$.themeBaseUrl}}/images/1.png" alt="Image"/>
+							</div>
+						</div>
+						<div class="grid__item-caption">
+							<h3 class="grid__item-title">jint's blog</h3>
+						</div>
+					</a>
+					<a href="http://ltsc.leanote.com/" target="_blank" class="grid__item grid__item--c3">
+						<div class="stack">
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__figure">
+								<img class="stack__img" src="{{$.themeBaseUrl}}/images/3.png" alt="Image"/>
+							</div>
+						</div>
+						<div class="grid__item-caption">
+							<h3 class="grid__item-title">ltcs's blog</h3>
+						</div>
+					</a>
+				</div>
+			</section>
+			<section class="content">
+				<div class="grid grid--effect-castor">
+					<a href="http://blog.leanote.com/althars" target="_blank" class="grid__item grid__item--c1">
+						<div class="stack">
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__figure">
+								<img class="stack__img" src="{{$.themeBaseUrl}}/images/4.png" alt="Image"/>
+							</div>
+						</div>
+						<div class="grid__item-caption">
+							<h3 class="grid__item-title">Althars's blog</h3>
+						</div>
+					</a>
+					<a href="http://lea.leanote.com/latest" target="_blank" class="grid__item grid__item--c2">
+						<div class="stack">
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__figure">
+								<img class="stack__img" src="{{$.themeBaseUrl}}/images/5.png" alt="Image"/>
+							</div>
+						</div>
+						<div class="grid__item-caption">
+							<h3 class="grid__item-title">leanote explore</h3>
+						</div>
+					</a>
+					<a href="http://hao.iyangqiong.com/" target="_blank" class="grid__item grid__item--c3">
+						<div class="stack">
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__deco"></div>
+							<div class="stack__figure">
+								<img class="stack__img" src="{{$.themeBaseUrl}}/images/6.png" alt="Image"/>
+							</div>
+						</div>
+						<div class="grid__item-caption">
+							<h3 class="grid__item-title">HaoWeb网址导航</h3>
+						</div>
+					</a>
+				</div>
+			</section>
 			</div>
-			<div class="created-time">
-				<i class="fa fa-clock-o"></i> {{$.single.UpdatedTime | datetime}} 
-			</div>
-			
-			<!-- 仅为移动端 -->
-			<div class="mobile-created-time">
-			{{ if $.blogInfo.UserLogo}}
-				<img src="{{$.blogInfo.UserLogo}}" id="userLogo">
-			{{else}}
-				<img src="{{$.siteUrl}}/images/blog/default_avatar.png" id="userLogo">
-			{{end}}
-			{{$.blogInfo.Username}}
-			</div>
-			
-			<div class="desc" id="content">
-					{{$.single.Content | raw}}
+			<div id="music-model" style="display:none">
 			</div>
 		</div>
-	</div>
-</div>
+		<script src="{{$.themeBaseUrl}}/anime.min.js"></script>
+		<script src="{{$.themeBaseUrl}}/main.js"></script>
+		<script>
+		  (function() {
+			[].slice.call(document.querySelectorAll('.grid--effect-castor > .grid__item')).forEach(function(stackEl) {
+				new CastorFx(stackEl);
+			});
+		})();  
+		</script>
+
 {{template "footer.html" $}}
 
 {{template "highlight.html" $}}
-
-<div id="blogNav">
-	<div id="blogNavNav">
-		<i class="fa fa-align-justify" title="Table of content"></i>
-		<span>Table of content</span>
-	</div>
-	<div id="blogNavContent">
-	</div>
-</div>
 
 <!-- 一些公用的js -->
 <script src="{{$.leanoteUrl}}/public/blog/js/common.js"></script>
 <script>
 $(function() {
-	initNav();
+    var $now = '{{.single.Title}}';
+    if("Friends" == $now ){
+        $("#friend-model").show();
+    }
+    if("Music" == $now ){
+        $("#music-model").show();
+    }
 });
 </script>
 

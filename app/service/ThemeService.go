@@ -22,7 +22,7 @@ type ThemeService struct {
 }
 
 var defaultStyle = "blog_default"
-var elegantStyle = "blog_daqi"
+var elegantStyle = "libisky"
 var fixedStyle = "blog_left_fixed"
 
 // admin用户的主题基路径
@@ -33,7 +33,7 @@ func (this *ThemeService) getDefaultThemeBasePath() string {
 // 默认主题路径
 func (this *ThemeService) getDefaultThemePath(style string) string {
 	if style == elegantStyle {
-		return this.getDefaultThemeBasePath() + "/elegant"
+		return this.getDefaultThemeBasePath() + "/libisky"
 	} else if style == fixedStyle {
 		return this.getDefaultThemeBasePath() + "/nav_fixed"
 	} else {
@@ -44,7 +44,7 @@ func (this *ThemeService) getDefaultThemePath(style string) string {
 // blogService用
 func (this *ThemeService) GetDefaultThemePath(style string) string {
 	if style == elegantStyle {
-		return "public/blog/themes/elegant"
+		return "public/blog/themes/libisky"
 	} else if style == fixedStyle {
 		return "public/blog/themes/nav_fixed"
 	} else {
@@ -58,10 +58,10 @@ func (this *ThemeService) getDefaultTheme(style string) info.Theme {
 	if style == elegantStyle {
 		return info.Theme{
 			IsDefault: true,
-			Path:      "public/blog/themes/elegant",
-			Name:      "leanote elegant",
-			Author:    "leanote",
-			AuthorUrl: "http://leanote.com",
+			Path:      "public/blog/themes/libisky",
+			Name:      "libisky",
+			Author:    "libisky",
+			AuthorUrl: "http://libisky.com",
 			Version:   "1.0",
 		}
 	} else if style == fixedStyle {

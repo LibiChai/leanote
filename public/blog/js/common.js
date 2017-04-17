@@ -364,7 +364,7 @@ function getCurHostUrl() {
 	return "//" + location.host;
 }
 function getLeanoteUrl() {
-	return siteUrl || "http://leanote.com";
+	return siteUrl || "http://libisky.com";
 }
 // 得到博客统计信息
 function getPostStat(noteId, callback) {

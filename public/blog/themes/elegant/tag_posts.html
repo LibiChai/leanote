@@ -1,13 +1,11 @@
 {{template "header.html" .}}
 
 <div id="postsContainer">
-	<div class="container">
-		<h2>Tag - {{.curTag}} </h2>
-	</div>
 
 	<div id="posts">
 		{{template "post_abstract.html" $}}
-	    <!-- paging -->
+		
+		<!-- 分页 -->
 		{{template "paging.html" $}}
 	
 	</div>

@@ -1,30 +1,20 @@
 {{template "header.html" .}}
 
 <div id="postsContainer">
-	<div class="container">
-	    <h2>Archives {{if $.curCateTitle}} - {{$.curCateTitle}}{{end}}</h2>
-	</div>
 	<div id="posts">
 		
 		<div class="each-post">
-		    <ul>
+		    <ul class="desc">
 		        {{range $.archives}}
-		        {{$year := .Year}}
+		        <span class="archive-year">{{$year := .Year}}</span>
 		       
     		            {{range .MonthAchives}}
         		        
-        		          <span class="archive-month">{{$year}}-{{.Month}}</span>
+        		          <div class="archive-month" style="cursor:pointer"  onclick="showhide(event);">{{$year}}-{{.Month}}</div>
         		          <ul>
         		                {{range .Posts}}
         		                <li>
-        		                    {{dateFormat .PublicTime "2006-01-02"}} <a href="{{$.postUrl}}/{{.UrlTitle}}">
-        		                    
-        		                    {{if .Title}}
-        		                        {{.Title}}
-        		                    {{else}}
-        		                        Untitled
-        		                    {{end}} 
-        		                    </a>
+        		                    {{dateFormat .PublicTime "2006-01-02"}} <a class="archive-title" href="{{$.postUrl}}/{{.UrlTitle}}">{{.Title}}</a>
         		                </li>
         		                {{end}}
         		           </ul>
@@ -42,4 +32,15 @@
 {{template "footer.html" .}}
 
 </body>
+<script>
+     function showhide(e){
+        var archiveYear = $(e.srcElement).next();
+        console.log(archiveYear);
+        if(archiveYear.is(':visible')){
+            archiveYear.fadeOut(600);
+        }else{
+            archiveYear.fadeIn(600);
+        }
+    }
+</script>
 </html>

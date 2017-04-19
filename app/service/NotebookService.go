@@ -10,6 +10,9 @@ import (
 	"strings"
 	"time"
 	//	"html"
+	"crypto/md5"
+	"io"
+	"fmt"
 )
 
 // 笔记本
@@ -375,4 +378,27 @@ func (this *NotebookService) ReCountAll() {
 			this.ReCountNotebookNumberNotes(each.NotebookId.Hex())
 		}
 	*/
+}
+
+//生成公开笔记链接
+func (this *NotebookService) PublicNote(notebookId string) string{
+	public_url := "/share/"
+	public_url += notebookId
+
+	key := configService.GetSecretKey()
+	pass := this.md5(notebookId+key);
+
+	return public_url+"/"+pass[0:6];
+}
+//验证公开链接是否合法
+func (this *NotebookService)CheckPublicNoteUrl(notebookId,pass string) bool{
+	key := configService.GetSecretKey()
+	pa := this.md5(notebookId+key);
+
+	return pa[0:6] == pass
+}
+func (this *NotebookService)md5(text string) string {
+	hashMd5 := md5.New()
+	io.WriteString(hashMd5, text)
+	return fmt.Sprintf("%x", hashMd5.Sum(nil))
 }

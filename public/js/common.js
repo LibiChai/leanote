@@ -326,6 +326,20 @@ ajaxPostJson(
 		log(e);
 	});
 */
+function showShareUrl(url){
+    ajaxGet(url,{},function(r){
+    	if(r.Ok){
+    		options = {};
+    	    options.title = "复制链接";
+			$("#showNotice .modal-body").html('<input style="width: 100%;" value="http://libisky.com'+r.Item+'">');
+			delete options.title;
+			options.show = true;
+			$("#showNotice").modal(options);
+		}
+	},function(){
+
+	})
+}
 
 function getVendorPrefix() {
   // 使用body是为了避免在还需要传入元素

@@ -1333,7 +1333,7 @@ Note.deleteNote = function(target, contextmenuItem, isShared) {
 // 显示共享信息
 Note.listNoteShareUserInfo = function(target) {
 	var noteId = $(target).attr("noteId");
-	showDialogRemote("/share/listNoteShareUserInfo", {noteId: noteId});
+	showShareUrl("/note/share/"+noteId);
 };
 
 // 共享笔记

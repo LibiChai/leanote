@@ -490,3 +490,11 @@ func (c Note) SetNote2Blog(noteIds []string, isBlog, isTop bool) revel.Result {
 	}
 	return c.RenderJSON(true)
 }
+
+func (c Note) ShareUrl(noteId string) revel.Result{
+	share_url := notebookService.PublicNote(noteId)
+	re := info.NewRe()
+	re.Ok = true
+	re.Item = share_url
+	return c.RenderJSON(re)
+}

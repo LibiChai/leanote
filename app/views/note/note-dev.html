@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <meta name="apple-touch-fullscreen" content="yes">
 <meta name=”apple-mobile-web-app-capable” content=”yes” />
-<meta name="keywords" content="leanote,leanote.com,蚂蚁笔记">
-<meta name="description" content="Leanote, 蚂蚁笔记, {{msg $ "moto"}}">
-<title>Leanote, {{msg $ "moto"}}</title>
+<meta name="keywords" content="libisky,libisky.com,蚂蚁笔记">
+<meta name="description" content="libisky, 蚂蚁笔记, {{msg $ "moto"}}">
+<title>libisky, {{msg $ "moto"}}</title>
 
 <link href="/css/bootstrap-min.css" rel="stylesheet" />
 <!-- 先加载, 没有样式, 宽度不定 -->
 <link rel="stylesheet" href="/css/tinymce/skin.min.css" rel="stylesheet"/>
-<!-- leanote css -->
+<!-- libisky css -->
 <link href="/css/font-awesome-4.2.0/css/font-awesome-min.css" rel="stylesheet" />
 <link href="/css/zTreeStyle/zTreeStyle-min.css" rel="stylesheet" />
 <!-- mdeditor -->
@@ -39,7 +39,7 @@ function log(o) {
 }
 </script>
 </head>
-<body class="leanote-plugin lang-{{$.locale}}">
+<body class="libisky-plugin lang-{{$.locale}}">
 	<div id="page">
 		<div id="pageInner">
 
@@ -47,7 +47,7 @@ function log(o) {
 			<!-- <div id="headerContainer"> -->
 			<div id="header">
 
-				<a id="logo" href="/" title="Leanote {{msg . "home"}}" class="pull-left"></a>
+				<a id="logo" href="/" title="libisky {{msg . "home"}}" class="pull-left"></a>
 				<div id="switcher" class="pull-left">
 					 <i class="fa fa-dedent" id="leftSwitcher" title="{{msg . "leftHidden"}}"></i>
 					 <span id="leftSwitcher2" class="fa fa-indent" title="{{msg . "leftShow"}}"></span>
@@ -121,7 +121,7 @@ function log(o) {
 					</div>				
 				</div>
 				
-				<div class="pull-left" id="leanoteMsg">
+				<div class="pull-left" id="libiskyMsg">
 					<span id="msg" style="display: inline-block;"></span>
 					<span id="loading">
 					</span>
@@ -190,7 +190,7 @@ function log(o) {
 				</div>
 
 				<div class="pull-right top-nav writting-hide lea-blog">
-					<a target="_blank" href="http://lea.leanote.com"> 
+					<a target="_blank" href="http://lea.libisky.com"> 
 						{{msg . "Explore"}}
 					</a>
 				</div>
@@ -205,7 +205,7 @@ function log(o) {
 					<a href="#writing"><span>{{msg . "writingMode"}}</span></a>
 				</div>
 				
-				{{if eq .userInfo.Email "demo@leanote.com"}}
+				{{if eq .userInfo.Email "demo@libisky.com"}}
 				{{if .openRegister}}					
 				<div class="pull-right top-nav" id="demoRegister">
 					<span>
@@ -769,6 +769,22 @@ function log(o) {
 			<!-- 弹出框 模板 -->
 			<div class="modal fade bs-modal-sm" id="leanoteDialogRemote" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 			</div>
+
+			<!-- 弹出框 -->
+			<div class="modal fade bs-modal-sm" id="showNotice" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="modalTitle">操作</h4>
+				</div>
+
+				<div class="modal-body">
+
+				</div>
+						</div>
+					</div>
+			</div>
 			
 			<div class="modal fade bs-modal-sm" id="leanoteDialog" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 			  <div class="modal-dialog modal-sm">
@@ -808,7 +824,7 @@ function log(o) {
 						  	</div>
 						  	<input type="hidden" id="toEmail"/>
 						    <label for="emailContent">邮件内容</label>
-						    <textarea class="form-control" id="emailContent">Hi, 我是life, leanote非常好用, 快来注册吧.</textarea>
+						    <textarea class="form-control" id="emailContent">Hi, 我是life, libisky非常好用, 快来注册吧.</textarea>
 						  </div>
 						</form>
 					</div>

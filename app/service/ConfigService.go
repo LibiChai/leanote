@@ -608,3 +608,8 @@ func (this *ConfigService) HomePageIsAdminsBlog() bool {
 func (this *ConfigService) GetVersion() string {
 	return "2.4"
 }
+
+func (this *ConfigService) GetSecretKey() string {
+	key, _ := revel.Config.String("public_note.key")
+	return key
+}

@@ -662,26 +662,26 @@ func (this *BlogService) IncReadNum(noteId string) bool {
 func (this *BlogService) LikeBlog(noteId, userId string) (ok bool, isLike bool) {
 	ok = false
 	isLike = false
-	if noteId == "" || userId == "" {
+	if noteId == "" {
 		return
 	}
 	// 判断是否点过赞, 如果点过那么取消点赞
-	note := noteService.GetNoteById(noteId)
-	if !note.IsBlog /*|| note.UserId.Hex() == userId */ {
-		return
-	}
+	//note := noteService.GetNoteById(noteId)
+	//if !note.IsBlog /*|| note.UserId.Hex() == userId */ {
+	//	return
+	//}
 
 	noteIdO := bson.ObjectIdHex(noteId)
-	userIdO := bson.ObjectIdHex(userId)
-	if !db.Has(db.BlogLikes, bson.M{"NoteId": noteIdO, "UserId": userIdO}) {
+
+	//if !db.Has(db.BlogLikes, bson.M{"NoteId": noteIdO, "UserId": userIdO}) {
 		// 添加之
-		db.Insert(db.BlogLikes, info.BlogLike{LikeId: bson.NewObjectId(), NoteId: noteIdO, UserId: userIdO, CreatedTime: time.Now()})
-		isLike = true
-	} else {
-		// 已点过, 那么删除之
-		db.Delete(db.BlogLikes, bson.M{"NoteId": noteIdO, "UserId": userIdO})
-		isLike = false
-	}
+	db.Insert(db.BlogLikes, info.BlogLike{LikeId: bson.NewObjectId(), NoteId: noteIdO, UserId:"guest" , CreatedTime: time.Now()})
+	isLike = true
+	//} else {
+	//	// 已点过, 那么删除之
+	//	db.Delete(db.BlogLikes, bson.M{"NoteId": noteIdO, "UserId": userIdO})
+	//	isLike = false
+	//}
 	
 	count := db.Count(db.BlogLikes, bson.M{"NoteId": noteIdO})
 	ok = db.UpdateByQI(db.Notes, bson.M{"_id": noteIdO}, bson.M{"LikeNum": count})
@@ -1126,8 +1126,7 @@ func (this *BlogService) GetUserBlogUrl(userBlog *info.UserBlog, username string
 func (this *BlogService) GetBlogUrls(userBlog *info.UserBlog, userInfo *info.User) info.BlogUrls {
 	var indexUrl, postUrl, searchUrl, cateUrl, singleUrl, tagsUrl, archiveUrl, tagPostsUrl string
 	
-	/*
-	if userBlog.Domain != "" && configService.AllowCustomDomain() { // http://demo.com
+	//if userBlog.Domain != "" && configService.AllowCustomDomain() { // http://demo.com
 		// ok
 		indexUrl = configService.GetUserUrl(userBlog.Domain)
 		cateUrl = indexUrl + "/cate"     // /xxxxx
@@ -1137,35 +1136,34 @@ func (this *BlogService) GetBlogUrls(userBlog *info.UserBlog, userInfo *info.Use
 		archiveUrl = indexUrl + "/archives"
 		tagsUrl = indexUrl + "/tags"
 		tagPostsUrl = indexUrl + "/tag"
-	} else if userBlog.SubDomain != "" { // demo.leanote.com
-		indexUrl = configService.GetUserSubUrl(userBlog.SubDomain)
-		cateUrl = indexUrl + "/cate"     // /xxxxx
-		postUrl = indexUrl + "/post"     // /xxxxx
-		searchUrl = indexUrl + "/search" // /xxxxx
-		singleUrl = indexUrl + "/single"
-		archiveUrl = indexUrl + "/archives"
-		tagsUrl = indexUrl + "/tags"
-		tagPostsUrl = indexUrl + "/tag"
-	} else {
-		*/
-		// ok
-		blogUrl := configService.GetBlogUrl() // blog.leanote.com
-		userIdOrEmail := ""
-		if userInfo.Username != "" {
-			userIdOrEmail = userInfo.Username
-		} else if userInfo.Email != "" {
-			userIdOrEmail = userInfo.Email
-		} else {
-			userIdOrEmail = userInfo.UserId.Hex()
-		}
-		indexUrl = blogUrl + "/" + userIdOrEmail
-		cateUrl = blogUrl + "/cate/" + userIdOrEmail        // /username/notebookId
-		postUrl = blogUrl + "/post/" + userIdOrEmail        // /username/xxxxx
-		searchUrl = blogUrl + "/search/" + userIdOrEmail    // blog.leanote.com/search/username
-		singleUrl = blogUrl + "/single/" + userIdOrEmail    // blog.leanote.com/single/username/singleId
-		archiveUrl = blogUrl + "/archives/" + userIdOrEmail // blog.leanote.com/archive/username
-		tagsUrl = blogUrl + "/tags/" + userIdOrEmail
-		tagPostsUrl = blogUrl + "/tag/" + userIdOrEmail // blog.leanote.com/archive/username
+	//} else if userBlog.SubDomain != "" { // demo.leanote.com
+	//	//indexUrl = configService.GetUserSubUrl(userBlog.SubDomain)
+	//	//cateUrl = indexUrl + "/cate"     // /xxxxx
+	//	//postUrl = indexUrl + "/post"     // /xxxxx
+	//	//searchUrl = indexUrl + "/search" // /xxxxx
+	//	//singleUrl = indexUrl + "/single"
+	//	//archiveUrl = indexUrl + "/archives"
+	//	//tagsUrl = indexUrl + "/tags"
+	//	//tagPostsUrl = indexUrl + "/tag"
+	//} else {
+	//	// ok
+	//	blogUrl := configService.GetBlogUrl() // blog.leanote.com
+	//	userIdOrEmail := ""
+	//	if userInfo.Username != "" {
+	//		userIdOrEmail = userInfo.Username
+	//	} else if userInfo.Email != "" {
+	//		userIdOrEmail = userInfo.Email
+	//	} else {
+	//		userIdOrEmail = userInfo.UserId.Hex()
+	//	}
+	//	indexUrl = blogUrl + "/" + userIdOrEmail
+	//	cateUrl = blogUrl + "/cate/" + userIdOrEmail        // /username/notebookId
+	//	postUrl = blogUrl + "/post/" + userIdOrEmail        // /username/xxxxx
+	//	searchUrl = blogUrl + "/search/" + userIdOrEmail    // blog.leanote.com/search/username
+	//	singleUrl = blogUrl + "/single/" + userIdOrEmail    // blog.leanote.com/single/username/singleId
+	//	archiveUrl = blogUrl + "/archives/" + userIdOrEmail // blog.leanote.com/archive/username
+	//	tagsUrl = blogUrl + "/tags/" + userIdOrEmail
+	//	tagPostsUrl = blogUrl + "/tag/" + userIdOrEmail // blog.leanote.com/archive/username
 	// }
 
 	return info.BlogUrls{

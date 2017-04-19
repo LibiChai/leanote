@@ -23,6 +23,8 @@ func (c Notebook) GetNotebooks() revel.Result {
 	return c.RenderJSON(re)
 }
 
+
+
 func (c Notebook) DeleteNotebook(notebookId string) revel.Result {
 	re, msg := notebookService.DeleteNotebook(c.GetUserId(), notebookId)
 	return c.RenderJSON(info.Re{Ok: re, Msg: msg})

@@ -78,16 +78,16 @@ func (c Blog) e404(themePath string) revel.Result {
 // lealife.com
 func (c Blog) domain() (ok bool, userBlog info.UserBlog) {
 	host := c.Request.Request.Host // a.cc.com:9000
-	hostArr := strings.Split(host, ".")
-	if strings.Contains(host, configService.GetDefaultDomain()) {
-		// 有二级域名 a.leanoe.com 3个
-		if len(hostArr) > 2 {
-			if userBlog = blogService.GetUserBlogBySubDomain(hostArr[0]); userBlog.UserId != "" {
-				ok = true
-				return
-			}
-		}
-	} else {
+	//hostArr := strings.Split(host, ".")
+	//if strings.Contains(host, configService.GetDefaultDomain()) {
+	//	// 有二级域名 a.leanoe.com 3个
+	//	if len(hostArr) > 2 {
+	//		if userBlog = blogService.GetUserBlogBySubDomain(hostArr[0]); userBlog.UserId != "" {
+	//			ok = true
+	//			return
+	//		}
+	//	}
+	//} else {
 		// 自定义域名
 		// 把:9000去掉
 		hostArr2 := strings.Split(host, ":")
@@ -95,8 +95,9 @@ func (c Blog) domain() (ok bool, userBlog info.UserBlog) {
 			ok = true
 			return
 		}
-	}
-	ok = false
+	//}
+	//fmt.Println(ok)
+	//fmt.Println(userBlog)
 	return
 }
 
@@ -818,7 +819,7 @@ func (c Blog) IncReadNum(noteId string) revel.Result {
 // 点赞, 要用jsonp
 func (c Blog) LikePost(noteId string, callback string) revel.Result {
 	re := info.NewRe()
-	userId := c.GetUserId()
+	userId := "1"
 	re.Ok, re.Item = blogService.LikeBlog(noteId, userId)
 	return c.RenderJSONP(callback, re)
 }
@@ -899,4 +900,38 @@ func (c Blog) ListCateLatest(notebookId, callback string) revel.Result {
 	re.Ok = true
 	re.List = blogs
 	return c.RenderJSONP(callback, re)
+}
+//公开的笔记地址
+func (c Blog) PublicNote(noteId ,pass string) revel.Result{
+	allow := notebookService.CheckPublicNoteUrl(noteId,pass)
+	if(!allow){
+		return c.RenderHTML("403");
+	}
+
+	// 自定义域名
+	_, userBlog := c.domain()
+
+
+	note := noteService.GetNoteAndContent(noteId,userBlog.UserId.Hex());
+	c.ViewArgs["note"] = note
+
+	c.ViewArgs["themeBaseUrl"] = "/"+userBlog.ThemePath
+	// 其它static js
+	c.ViewArgs["jQueryUrl"] = "/js/jquery-1.9.0.min.js"
+
+	c.ViewArgs["prettifyJsUrl"] = "/js/google-code-prettify/prettify.js"
+	c.ViewArgs["prettifyCssUrl"] = "/js/google-code-prettify/prettify.css"
+
+	c.ViewArgs["blogCommonJsUrl"] = "/public/blog/js/common.js"
+
+	c.ViewArgs["shareCommentCssUrl"] = "/public/blog/css/share_comment.css"
+	c.ViewArgs["shareCommentJsUrl"] = "/public/blog/js/share_comment.js"
+
+	c.ViewArgs["fontAwesomeUrl"] = "/css/font-awesome-4.2.0/css/font-awesome.css"
+
+	c.ViewArgs["bootstrapCssUrl"] = "/css/bootstrap.css"
+	c.ViewArgs["bootstrapJsUrl"] = "/js/bootstrap-min.js"
+
+	fmt.Println(userBlog.ThemePath)
+	return c.render("public_note.html", userBlog.ThemePath)
 }
